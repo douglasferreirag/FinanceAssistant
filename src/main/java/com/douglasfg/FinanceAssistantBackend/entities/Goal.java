@@ -1,0 +1,46 @@
+package com.douglasfg.FinanceAssistantBackend.entities;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Goal {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Mês e ano da meta
+    @NotNull(message = "O mês é obrigatório")
+    @Positive(message = "O mês deve ser positivo")
+    private int month;
+
+    @NotNull(message = "O ano é obrigatório")
+    @Positive(message = "O ano deve ser positivo")
+    private int year;
+
+    // Valor limite (teto)
+    @NotNull(message = "O valor limite é obrigatório")
+    @Positive(message = "O valor limite deve ser positivo")
+    private Double limit_value;
+
+  
+  
+}
