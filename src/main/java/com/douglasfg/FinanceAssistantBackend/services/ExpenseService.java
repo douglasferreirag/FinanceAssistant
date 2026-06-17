@@ -1,10 +1,9 @@
-package com.douglasfg.backend.services;
+package com.douglasfg.FinanceAssistantBackend.services;
 
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -13,14 +12,19 @@ import com.douglasfg.FinanceAssistantBackend.entities.Expense;
 import com.douglasfg.FinanceAssistantBackend.repositories.CategoryRepository;
 import com.douglasfg.FinanceAssistantBackend.repositories.ExpenseRepository;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@Data
+@RequiredArgsConstructor
 public class ExpenseService {
 
-    @Autowired
-    private ExpenseRepository expenseRepository;
+    
+    private final ExpenseRepository expenseRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    
+    private final CategoryRepository categoryRepository;
 
    
     public Expense save(Expense expense) {

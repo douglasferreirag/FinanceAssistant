@@ -2,11 +2,10 @@ package com.douglasfg.FinanceAssistantBackend.services;
 
 
 import com.douglasfg.FinanceAssistantBackend.entities.Expense;
-import com.douglasfg.FinanceAssistantBackend.entities.Goal;
 import com.douglasfg.FinanceAssistantBackend.repositories.ExpenseRepository;
 import com.douglasfg.FinanceAssistantBackend.repositories.GoalRepository;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.Data;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -16,9 +15,14 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.client.RestClientException;
+
+import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 @Service
+@Data
 public class ChatbotService {
 
     private final ExpenseRepository expenseRepository;
@@ -42,11 +46,11 @@ public class ChatbotService {
 
     public String analyzeExpenses(int month, int year) {
 
-          try {
+        try {
                 List<Expense> expenses = expenseRepository.findByMonthAndYear(month, year);
                 double total = expenses.stream().mapToDouble(Expense::getCost).sum();
                 double goal = goalRepository.findByMonthAndYear(month, year)
-                        .map(Goal::getLimitValue)
+                        .map(t -> t.getLimit_value())
                         .orElse(0.0);
 
                 String prompt = """
@@ -80,9 +84,9 @@ public class ChatbotService {
                 JsonNode geminiResponse = objectMapper.readTree(response.getBody());
                 return geminiResponse.path("candidates").get(0)
                         .path("content").path("parts").get(0)
-                        .path("text").asText();
+                        .path("text").asString();
 
-        } catch (Exception e) {
+        } catch (RestClientException | JacksonException e) {
                 return "⚠️ Erro ao processar análise: " + e.getMessage();
         }
     }
