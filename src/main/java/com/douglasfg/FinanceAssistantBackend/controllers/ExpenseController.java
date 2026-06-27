@@ -6,24 +6,24 @@ package com.douglasfg.FinanceAssistantBackend.controllers;
 
 import java.util.List;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.douglasfg.FinanceAssistantBackend.entities.Expense;
 import com.douglasfg.FinanceAssistantBackend.services.ExpenseService;
+
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequestMapping("/api/expenses")
+@RequiredArgsConstructor
+@Data
 public class ExpenseController {
 
 
     private final ExpenseService expenseService;
-
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
-    }
-    
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Expense expense) {

@@ -8,20 +8,20 @@ import com.douglasfg.FinanceAssistantBackend.entities.Category;
 import com.douglasfg.FinanceAssistantBackend.services.CategoryService;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 
 
 @RestController
 @RequestMapping("/api/categories")
 @Data
+@RequiredArgsConstructor
+
 public class CategoryController {
 
 
     
     private final CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
  
    
 

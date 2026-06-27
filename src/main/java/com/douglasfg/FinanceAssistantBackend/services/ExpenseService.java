@@ -2,10 +2,11 @@ package com.douglasfg.FinanceAssistantBackend.services;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
 
 import com.douglasfg.FinanceAssistantBackend.entities.Category;
 import com.douglasfg.FinanceAssistantBackend.entities.Expense;
@@ -53,6 +54,16 @@ public class ExpenseService {
     public Double sumByMonthAndYear(int month, int year) {
         Double total = expenseRepository.sumByMonthAndYear(month, year);
         return total != null ? total : 0.0;
+    }
+
+    
+    public Map<String, Double> getExpensesGroupedByCategory() {
+    return expenseRepository.getExpensesGroupedByCategory()
+        .stream()
+        .collect(Collectors.toMap(
+            row -> (String) row[0],
+            row -> (Double) row[1]
+        ));
     }
 
    

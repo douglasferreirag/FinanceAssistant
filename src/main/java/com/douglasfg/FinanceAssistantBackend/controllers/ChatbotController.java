@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import com.douglasfg.FinanceAssistantBackend.services.ChatbotService;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/chatbot")
 @Data
+@RequiredArgsConstructor
 public class ChatbotController {
 
     private final ChatbotService chatbotService;
 
-    public ChatbotController(ChatbotService chatbotService) {
-        this.chatbotService = chatbotService;
-    }
 
     @PostMapping("/analyze")
     public ResponseEntity<String> analyze(

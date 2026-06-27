@@ -20,6 +20,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("SELECT e FROM Expense e WHERE FUNCTION('MONTH', e.expenseDate) = :month AND FUNCTION('YEAR', e.expenseDate) = :year")
     List<Expense> findByMonthAndYear(@Param("month") int month, @Param("year") int year);
    
-
+    @Query("SELECT e.category.name, SUM(e.cost) FROM Expense e GROUP BY e.category.name")
+    List<Object[]> getExpensesGroupedByCategory();
 
 }
