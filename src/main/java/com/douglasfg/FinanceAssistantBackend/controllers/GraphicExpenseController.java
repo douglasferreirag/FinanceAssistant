@@ -12,9 +12,9 @@ import com.douglasfg.FinanceAssistantBackend.services.ExpenseService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/expense-dashboard")
+@RequestMapping("/api/expense-graphic")
 @RequiredArgsConstructor
-public class DashboardExpenseController {
+public class GraphicExpenseController {
 
      
     private final ExpenseService expenseService;
