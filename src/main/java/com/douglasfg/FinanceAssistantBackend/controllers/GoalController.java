@@ -1,10 +1,11 @@
 package com.douglasfg.FinanceAssistantBackend.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.douglasfg.FinanceAssistantBackend.entities.Goal;
 import com.douglasfg.FinanceAssistantBackend.services.GoalService;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,19 +19,20 @@ public class GoalController {
         this.goalService = goalService;
     }
 
+    // Criar meta → 201 Created
     @PostMapping("/save")
-    public Goal save(@RequestBody Goal goal) {
-        return goalService.save(goal);
+    public ResponseEntity<Goal> save(@RequestBody Goal goal) {
+        Goal saved = goalService.save(goal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    // Buscar todas → 200 OK ou 204 No Content
     @GetMapping("/findAll")
-    public List<Goal> findAll() {
-        return goalService.findAll();
+    public ResponseEntity<List<Goal>> findAll() {
+        List<Goal> goals = goalService.findAll();
+        if (goals.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content
+        }
+        return ResponseEntity.ok(goals); // 200 OK
     }
-
-   
-
-    
-
-   
 }
