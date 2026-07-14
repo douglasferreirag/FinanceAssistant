@@ -1,7 +1,7 @@
 package com.douglasfg.FinanceAssistantBackend.services;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.stereotype.Service;
 
@@ -30,10 +30,17 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Optional<Category> findByName(String name) {
-        return categoryRepository.findByName(name);
+
+    public Category findByName(String name) {
+        return categoryRepository.findByName(name)
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     }
 
+     public List<String> getAllNames() {
+        return categoryRepository.findAllNames();
+    }
 
     
+
+
 }

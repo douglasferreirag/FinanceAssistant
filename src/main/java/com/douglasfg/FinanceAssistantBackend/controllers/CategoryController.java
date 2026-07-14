@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,4 +39,16 @@ public class CategoryController {
         }
         return ResponseEntity.ok(categories); // 200 OK
     }
+
+    @GetMapping("/findByName/{name}")
+    public ResponseEntity<Category> findByName(@PathVariable String name) {
+        return ResponseEntity.ok(categoryService.findByName(name));
+    }
+
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllNames() {
+        return ResponseEntity.ok(categoryService.getAllNames());
+    }
+
+   
 }
