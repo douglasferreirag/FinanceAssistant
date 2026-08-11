@@ -3,7 +3,7 @@ CREATE TABLE goal (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     month INT NOT NULL,
     year INT NOT NULL,
-    limit_value DOUBLE NOT NULL CHECK (limit_value > 0)
+    ceiling DOUBLE NOT NULL CHECK (ceiling > 0)
 );
 
 -- Tabela de junção entre metas e despesas

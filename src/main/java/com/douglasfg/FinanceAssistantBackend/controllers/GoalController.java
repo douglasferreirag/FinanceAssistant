@@ -35,4 +35,13 @@ public class GoalController {
         }
         return ResponseEntity.ok(goals); // 200 OK
     }
+
+    @GetMapping("/findByMonthAndYear")
+    public ResponseEntity<Double> findByMonthAndYear(
+            @RequestParam int month,
+            @RequestParam int year) {
+        Goal goal = goalService.findByMonthAndYear(month, year);
+        return ResponseEntity.ok(goal.getCeiling());
+    }
+
 }

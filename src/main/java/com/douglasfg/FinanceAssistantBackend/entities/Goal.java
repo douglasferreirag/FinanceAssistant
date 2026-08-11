@@ -39,7 +39,7 @@ public class Goal {
     // Valor limite (teto)
     @NotNull(message = "O valor limite é obrigatório")
     @Positive(message = "O valor limite deve ser positivo")
-    private Double limit_value;
+    private Double ceiling;
 
   
   

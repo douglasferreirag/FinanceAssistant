@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douglasfg.FinanceAssistantBackend.entities.Expense;
@@ -46,9 +47,18 @@ public class ExpenseController {
 
     // Buscar por ID → 200 OK ou 404 Not Found
     @GetMapping("/{id}")
-    public ResponseEntity<Expense> search(@PathVariable Long id) {
+    public ResponseEntity<Expense> findById(@PathVariable Long id) {
         return expenseService.findById(id)
                 .map(ResponseEntity::ok) // 200 OK
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // 404 Not Found
     }
+
+    @GetMapping("/sumByMonthAndYear")
+    public ResponseEntity<Double> sumByMonthAndYear(
+            @RequestParam int month,
+            @RequestParam int year) {
+        Double result = expenseService.sumByMonthAndYear(month, year);
+        return ResponseEntity.ok(result);
+    }
+
 }
