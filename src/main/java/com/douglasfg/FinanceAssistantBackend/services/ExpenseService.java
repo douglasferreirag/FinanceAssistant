@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-
 import com.douglasfg.FinanceAssistantBackend.entities.Expense;
-
 import com.douglasfg.FinanceAssistantBackend.repositories.ExpenseRepository;
 
 import lombok.Data;
@@ -23,6 +21,8 @@ public class ExpenseService {
 
     
     private final ExpenseRepository expenseRepository;
+
+    private final AiAnalyzeHistoryService aiAnalyzeHistoryService;
 
 
    
@@ -54,6 +54,14 @@ public class ExpenseService {
             row -> (String) row[0],
             row -> (Double) row[1]
         ));
+    }
+
+    public String analyzeHistory() {
+
+        List<Expense> expenses = expenseRepository.findAll();
+
+        return aiAnalyzeHistoryService.analyzeHistoryExpenses(expenses);
+        
     }
 
    

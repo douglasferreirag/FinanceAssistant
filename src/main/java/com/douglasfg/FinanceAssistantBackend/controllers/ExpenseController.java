@@ -61,4 +61,9 @@ public class ExpenseController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/analyzeHistory")
+    public String analyzeHistory() {
+        return expenseService.analyzeHistory();
+    }
+
 }
